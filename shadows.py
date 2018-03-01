@@ -46,34 +46,21 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         self.progressBar1.setValue(pbar)
         cap = cv2.VideoCapture(str(self.fname))
         length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-
-
-        # print pbarcut
         orb = cv2.ORB_create()
-        try:
-            if not os.path.exists('data'):
-        	os.makedirs('data')
-        except OSError:
-            print ('Error: Creating directory of data')
         currentFrame = 0
         ret=True
         while(ret):
             self.progressBar1.setValue(pbar)
             ret, frame = cap.read()
-            name = './data/frame' + str(currentFrame) + '.jpg'
-            self.feature_status.setText('Creating...' + name)
-            print ('Creating...' + name)
             if ret == True:
         	img = cv2.cvtColor( frame, cv2.COLOR_RGB2GRAY )
-
             k = cv2.waitKey(30) & 0xff
             if k == 27:
         	break
-            cv2.imwrite(name,img)
             kp = orb.detect(img,None)
             kp, des = orb.compute(img, kp)
             if currentFrame!=0:
-            	print(des)
+                self.feature_status.setText(str(des))
             	with open("features.csv", 'wb') as f:
         		np.savetxt(f,des,delimiter=",")
             img2 = cv2.drawKeypoints(img,kp,img,color=(0,255,0),flags=0)
@@ -101,6 +88,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
     	svm_model_pkl = open(svm_pkl_filename, 'wb')
     	pickle.dump(clf, svm_model_pkl)
     	svm_model_pkl.close()
+        self.status.setText("Training Completed successfully")
 
     def svmtest(self):
         svm_pkl_filename = 'data.pkl'
@@ -121,7 +109,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         self.progressBar2.setValue(100)
         # self.activity_status.setText("Test Completed")
     	if count1>count0:
-            self.status.setText("Suspicious activity detected!")
+            self.status.setText("Suspicious activity detected in video :"+self.fname)
     		# print("suspicious")
     	else:
             self.status.setText("No suspicious activity was detected")
