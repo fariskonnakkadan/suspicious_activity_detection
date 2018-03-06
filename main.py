@@ -8,7 +8,10 @@ import pickle
 from sklearn import preprocessing, cross_validation, neighbors, svm
 import pandas as pd
 from PyQt4 import QtCore, QtGui, uic
+from PyQt4.QtCore import QThread
 import datetime
+import itertools
+import csv
 
 now = datetime.datetime.now()
 
@@ -220,21 +223,43 @@ class Train(base_3, form_3):
 
 
     def svmtrain(self):
-        if(not fileIsSelected):
-            self.trainProgressWindow.setText("Error : Please Extract Features.")
-            return
-        df = pd.read_csv('train.csv')
-    	numpy_array = df.as_matrix()
-    	new=0.0
-    	d = pd.read_csv('target.csv',header = 0)
-    	narray = d.as_matrix()
-    	clf = svm.SVC(kernel = 'linear', C = 1)
-    	clf.fit(numpy_array, narray.ravel())
-    	svm_pkl_filename = 'data.pkl'
-    	svm_model_pkl = open(svm_pkl_filename, 'wb')
-    	pickle.dump(clf, svm_model_pkl)
-    	svm_model_pkl.close()
-        self.trainProgressWindow.setText("Training Completed successfully")
+        self.trainProgressBar.setRange(0,0)
+        f_features = 'extracted.csv'
+        f_train = 'train.csv'
+        target = 'target.csv'
+        with open(f_features, "rb") as f_input, open(f_train, "ab") as f_output:
+            csv_input = csv.reader(f_input)
+            csv.writer(f_output).writerows(csv_input)
+            f_input.close()
+            f_output.close()
+        print "Copy Completed"
+        #to know the number of rows in features file
+        input_file = open("extracted.csv","r+")
+        reader_file = csv.reader(input_file)
+        value = len(list(input_file))
+        print "Number of rows = "
+        print value
+        if self.radioButtonSuspicious.isChecked():
+        #creating 0's for appending with target
+            list1 = []
+            for i in range(value):
+                list1.append(1)
+            print "1's created"
+        elif self.radioButtonNotSuspicious.isChecked():
+            list1 = []
+            for i in range(value):
+                list1.append(0)
+            print "0's created"
+        #appending list containing 0's on target
+        with open("target.csv", "ab") as fp:
+            wr = csv.writer(fp, dialect='excel')
+            wr.writerows(zip(list1))
+        print "append to target.csv"
+        print "completed"
+        input_file.close()
+        fp.close()
+        self.thread1 = Thread()
+        self.thread1.start()
 
 
 
@@ -346,6 +371,28 @@ class MyApp(base_2, form_2, Log):
             f.write(str(now)+" : No Suspicious activity detected in video :"+self.fname+"\n")
             f.close()
 
+class Thread(QThread):
+    def __init__(self):
+        QThread.__init__(self)
+
+    def __del__(self):
+        self.wait()
+
+    def run(self):
+        print "Thread started"
+        df = pd.read_csv('train.csv')
+    	numpy_array = df.as_matrix()
+    	new=0.0
+    	d = pd.read_csv('target.csv',header = 0)
+    	narray = d.as_matrix()
+        print "matrix completed"
+        clf = svm.SVC(kernel = 'linear', C = 1)
+    	clf.fit(numpy_array, narray.ravel())
+    	svm_pkl_filename = 'data.pkl'
+    	svm_model_pkl = open(svm_pkl_filename, 'wb')
+    	pickle.dump(clf, svm_model_pkl)
+    	svm_model_pkl.close()
+        print "Training Completed"
 
 if __name__ == '__main__':
 
