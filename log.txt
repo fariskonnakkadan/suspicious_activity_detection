@@ -61,3 +61,15 @@
 2018-03-04 22:28:59.128280 : No Suspicious activity detected in video :/home/farismohammed/Desktop/batch_shadow/Sample/d.mp4
 2018-03-04 22:28:59.128280 : No Suspicious activity detected in video :/home/farismohammed/Desktop/batch_shadow/Sample/c.mp4
 2018-03-04 22:28:59.128280 : No Suspicious activity detected in video :/home/farismohammed/Desktop/batch_shadow/Sample/a.mp4
+2018-03-05 10:59:50.005001 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/1.mp4
+2018-03-05 10:59:50.005001 : No Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/b.mp4
+2018-03-05 10:59:50.005001 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/1.mp4
+2018-03-05 10:59:50.005001 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/2.mp4
+2018-03-05 10:59:50.005001 : No Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/d.mp4
+2018-03-05 10:59:50.005001 : No Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/c.mp4
+2018-03-05 10:59:50.005001 : No Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/a.mp4
+2018-03-05 15:04:23.804916 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/2.mp4
+2018-03-05 15:04:23.804916 : No Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/1.mp4
+2018-03-05 15:04:23.804916 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/b.mp4
+2018-03-05 15:04:23.804916 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/c.mp4
+2018-03-05 15:04:23.804916 : Suspicious activity detected in video :/home/farismohammed/Desktop/project_final/Sample/d.mp4
