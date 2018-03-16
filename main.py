@@ -46,9 +46,13 @@ class BatchProcess(base_5, form_5):
         self.files = []
         self.directory = ""
         self.root = ""
+        self.folderIsSelected= False
 
     def selectFolder(self):
         self.directory = str(QtGui.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        if self.directory:
+            self.folderIsSelected = True
+            self.currentFile.setText("Folder Selected, Click 'Start'.")
         print dir
 
         for self.root, dirs, self.files in os.walk(self.directory):
@@ -69,6 +73,9 @@ class BatchProcess(base_5, form_5):
         self.log.show()
 
     def process(self, files):
+        if(not self.folderIsSelected):
+            self.currentFile.setText("Please select a Folder")
+            return
         print self.files
         print self.root+"/"+self.files[0]
         open('batch.txt', 'w').close()
@@ -162,8 +169,7 @@ class Login(base_1, form_1):
         self.exitLogin.clicked.connect(self.close)
 
     def handleLogin(self):
-        if (self.username.text() == 'admin' and
-            self.password.text() == 'admin'):
+        if (self.password.text() == 'admin'):
             self.accept()
         else:
             QtGui.QMessageBox.warning(self, 'Error', 'Incorrect username or password')
@@ -297,8 +303,9 @@ class MyApp(base_2, form_2, Log):
         self.fname=QtGui.QFileDialog.getOpenFileName(filter='*.avi *.mp4')
         self.textBrowser.setText(self.fname)
         print self.fname
-        fileIsSelected = True
-        self.progressbox.setText("Selected.")
+        if self.fname:
+            fileIsSelected = True
+            self.progressbox.setText("File Selected.")
 
     def test(self):
         if(not fileIsSelected):
