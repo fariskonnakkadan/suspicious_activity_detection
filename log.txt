@@ -108,3 +108,5 @@
 2018-03-14 14:19:12.611962 : No Suspicious activity detected in video :/home/farismohammed/Desktop/demo/Sample/d.mp4
 2018-03-14 14:19:12.611962 : No Suspicious activity detected in video :/home/farismohammed/Desktop/demo/Sample/c.mp4
 2018-03-14 14:19:12.611962 : No Suspicious activity detected in video :/home/farismohammed/Desktop/demo/Sample/a.mp4
+2018-04-09 19:21:38.511741 : Suspicious activity detected in video :/home/farismohammed/Desktop/demo/Sample/1.mp4
+2018-04-16 23:03:33.455575 : No Suspicious activity detected in video :/home/farismohammed/Desktop/demo/Sample/a.mp4
